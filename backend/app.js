@@ -4,6 +4,13 @@ const app= express();
 const mongoose = require('mongoose');
 // const mongoConnect = require('./util/database').mongoConnect;
 // mongoConnect();
+mongoose.connect('mongodb+srv://rajat_veggi1304:' + process.env.MONGO_ATLAS_PW + '@veggies.znzgp.mongodb.net/users?retryWrites=true&w=majority',{useNewUrlParser: true, useUnifiedTopology: true}).then(
+    result=>{
+        console.log("Users connected");
+    }
+).catch(error=>{
+    console.log(error);
+});
 app.use(express.json({extended:false}));
 app.use(express.urlencoded({extended:false}));
 app.use('/images',express.static(path.join('backend/images')));
