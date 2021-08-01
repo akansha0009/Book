@@ -4,7 +4,7 @@ const app= express();
 const mongoose = require('mongoose');
 // const mongoConnect = require('./util/database').mongoConnect;
 // mongoConnect();
-mongoose.connect('mongodb+srv://rajat_veggi1304:' + process.env.MONGO_ATLAS_PW + '@veggies.znzgp.mongodb.net/users?retryWrites=true&w=majority',{useNewUrlParser: true, useUnifiedTopology: true}).then(
+mongoose.connect('mongodb+srv://Akansha:2U6vOZESNw5bqBGW@cluster0.j6npz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority' ,{useNewUrlParser: true, useUnifiedTopology: true}).then(
     result=>{
         console.log("Users connected");
     }
