@@ -1,9 +1,8 @@
 const path= require("path");
 const express=require('express');
-const app= express();
+const app = express();
 const mongoose = require('mongoose');
-// const mongoConnect = require('./util/database').mongoConnect;
-// mongoConnect();
+
 mongoose.connect('mongodb+srv://Akansha:2U6vOZESNw5bqBGW@cluster0.j6npz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority' ,{useNewUrlParser: true, useUnifiedTopology: true}).then(
     result=>{
         console.log("Users connected");
@@ -21,7 +20,13 @@ app.use((req,res,next)=>{
     next();
 });
 
+app.post('/signUp',(req,res,next)=>{
+    const email = req.body.email;
+    const password = req.body.password;
+    res.json({
+    message:"User Created"
+    });
+});
 
-
-// app.listen(3000);
+//app.listen(3000);
 module.exports=app;
