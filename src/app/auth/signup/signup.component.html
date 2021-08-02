@@ -1,2 +1,17 @@
-<p>signup works!</p>
-<button>button</button>
+<h1>BookLand</h1>
+<section class = "signup">
+    <form fxLayout = "column" fxLayoutAlign = "center center" #form = "ngForm" (ngSubmit) = "onSubmit(form)"> 
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Enter ypur Email" ngModel name = "email">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Enter your password" ngModel name = "password">
+          </mat-form-field>
+          <div>
+            <button mat-raised-button color="primary">sign in</button>
+          </div>
+    </form>
+</section>
+
