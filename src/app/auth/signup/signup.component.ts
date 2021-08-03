@@ -17,9 +17,6 @@ export class SignupComponent implements OnInit {
     console.log(form);
     this.authService.signUp(form.value.email,form.value.password).then(response =>{
       console.log(response);
-      return 'Akansha';
-    }).then(response => {
-      console.log(response);
     }).catch(error =>{
       console.log(error);
     });

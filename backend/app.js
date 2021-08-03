@@ -2,14 +2,16 @@ const path= require("path");
 const express=require('express');
 const app = express();
 const mongoose = require('mongoose');
+//Send@canberry94 -- sendGrid Password
+const { callbackify } = require("util");
 
-mongoose.connect('mongodb+srv://Akansha:2U6vOZESNw5bqBGW@cluster0.j6npz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority' ,{useNewUrlParser: true, useUnifiedTopology: true}).then(
-    result=>{
-        console.log("Users connected");
-    }
-).catch(error=>{
-    console.log(error);
-});
+// mongoose.connect('mongodb+srv://Akansha:2U6vOZESNw5bqBGW@cluster0.j6npz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority' ,{useNewUrlParser: true, useUnifiedTopology: true}).then(
+//     result=>{
+//         console.log("Users connected");
+//     }
+// ).catch(error=>{
+//     console.log(error);
+// });
 app.use(express.json({extended:false}));
 app.use(express.urlencoded({extended:false}));
 app.use('/images',express.static(path.join('backend/images')));
@@ -27,6 +29,7 @@ app.post('/signUp',(req,res,next)=>{
     message:"User Created"
     });
 });
+
 
 //app.listen(3000);
 module.exports=app;
