@@ -20,9 +20,5 @@ export class AuthService{
         });
      return promise;
     } 
-<<<<<<< HEAD
-=======
-
->>>>>>> 9453eb5e411264477dacf4f1621f2c36b41fa509
     
 }
