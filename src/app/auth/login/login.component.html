@@ -1,7 +1,7 @@
-<p>login works!</p>
+<br><br>
 
 <section class = "login-form">
-  <form fxLayout= "column" fxLayoutAlign = "center center" [formGroup] = "loginForm">
+  <form fxLayout= "column" fxLayoutAlign = "center center" [formGroup] = "loginForm" (ngSubmit) = "onSubmit()">
     <mat-form-field appearance="fill">
       <mat-label>User Name</mat-label>
       <input matInput placeholder="Enter ypur user name" formControlName = "userName">
