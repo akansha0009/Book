@@ -9,7 +9,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class LoginComponent implements OnInit {
   loginForm:FormGroup= new FormGroup({});
   public rollno:any;
-  newForm:FormGroup;
   constructor(){
 
   }
