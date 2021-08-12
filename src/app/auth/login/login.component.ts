@@ -10,11 +10,7 @@ import { AuthService } from '../auth.service';
 export class LoginComponent implements OnInit {
   loginForm:FormGroup= new FormGroup({});
   public rollno:any;
-<<<<<<< HEAD
-  constructor(){
-=======
   newForm:FormGroup;
->>>>>>> 39077f7659bc758169eff81da57966745645e274
 
   constructor(private authService: AuthService){
   }
