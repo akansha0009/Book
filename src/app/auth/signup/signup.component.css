@@ -2,3 +2,7 @@ mat-form-field{
     width: 300px;
 }
 
+h1{
+    color: rgb(40, 40, 206);
+    text-align: center;
+}
