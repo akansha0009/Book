@@ -1,0 +1,33 @@
+<h2>Add books</h2>
+<section>
+    <form fxLayout="column" fxLayoutAlign="center center" [formGroup]="bookForm" (ngSubmit)= "onSubmit()">
+        <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Book name" formControlName="name">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Author</mat-label>
+            <input matInput placeholder="Author name" formControlName="author">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Price</mat-label>
+            <input matInput placeholder="Price" formControlName="price">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Category</mat-label>
+            <input matInput placeholder="category" formControlName="category">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea matInput row="4" placeholder="description" formControlName="description"></textarea>
+        </mat-form-field>
+        <div>
+            <button mat-stroked-button type = "submit" (click)="selectBook.click()">Select Book</button>
+            <input type = "file" #selectBook>
+        </div>
+        <br>
+        <div>
+            <button mat-raised-button type = "submit" color= "primary">Submit</button>
+        </div>
+    </form>
+</section>
