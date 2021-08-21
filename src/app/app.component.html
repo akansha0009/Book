@@ -1,2 +1,30 @@
-
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+    <mat-sidenav #sidenav role= "navigation">
+        <mat-list>
+            <a mat-list-item routerLink = "/signup" (click)= "sidenav.close()">
+                <mat-icon>face</mat-icon>
+                <span class= "nav-caption">Sign up</span>
+            </a>
+            <a mat-list-item routerLink = "/login" (click)= "sidenav.close()">
+                <mat-icon>input</mat-icon>
+                <span class= "nav-caption">Sign in</span>
+            </a>
+        </mat-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <!-- <button (click)= "sidenav.toggle()">open sidenav</button> -->
+        <mat-toolbar color= "primary">
+            <div fxHide.gt-xs><button mat-icon-button (click) = "sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button></div>
+            <div>LOGO</div>
+                <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs fxShow.md>
+                    <ul fxLayout class="navigation-item" fxLayoutGap="10px">
+                        <li><a routerLink = "/signup">Sign up</a></li>
+                        <li><a routerLink = "/login">Sign in</a></li>
+                    </ul>
+                </div>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

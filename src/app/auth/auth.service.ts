@@ -30,7 +30,8 @@ export class AuthService{
                 console.log(error);
                 rejects(error);
             })
-        })
+        });
+        return promise;
     }
     
 }
