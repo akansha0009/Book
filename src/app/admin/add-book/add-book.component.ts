@@ -61,7 +61,8 @@ export class AddBookComponent implements OnInit {
   onSelected(event: Event){
     const file = (event.target as HTMLInputElement).files[0];
     console.log(file);
-    this.bookForm.patchValue({image: file});
+    // this.bookForm.patchValue({image: file});
+    this.bookForm.get('image').patchValue(file,{emitModelToViewChange: false});
     this.bookForm.get('image').updateValueAndValidity();
     console.log(file);
     // console.log(this.bookForm);
@@ -74,7 +75,5 @@ export class AddBookComponent implements OnInit {
   }
 
 }
-function then(arg0: (res: any) => void) {
-  throw new Error('Function not implemented.');
-}
+
 
