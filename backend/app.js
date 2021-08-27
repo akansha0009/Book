@@ -15,7 +15,7 @@ const MIME_TYPE_MAP = {
     'image/jpg': 'jpg'
 }
 
-const storage = diskStorage({
+const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         const isValid = MIME_TYPE_MAP[file.mimetype];
         let error = new Error('Invalid mime type');
@@ -23,7 +23,7 @@ const storage = diskStorage({
         if(isValid){
             return null;
         }
-        cb(error, "backend/images");
+        cb(error, "./backend/images");
     },
     filename: (req, file, cb) => {
         const name = file.originalname.toLocaleLowerCase().split(' ').join('-');
@@ -42,7 +42,7 @@ mongoose.connect('mongodb+srv://Akansha:2U6vOZESNw5bqBGW@cluster0.j6npz.mongodb.
 
 app.use(express.json({extended:false}));
 app.use(express.urlencoded({extended:false}));
-app.use('/images',express.static(path.join('backend/images/')));
+app.use('/images',express.static(path.join('backend/images')));
 app.use((req,res,next)=>{
     res.setHeader("Access-Control-Allow-Origin","*");
     res.setHeader("Access-Control-Allow-Headers","Origin,X-Requested-With, Content-Type, Accept,Authorization");
