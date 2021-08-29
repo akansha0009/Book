@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from '../auth.service';
-
+import { SignupComponent } from '../signup/signup.component';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = new FormGroup({
       'email': new FormControl(""),
       'password': new FormControl("")
-      })
+      });
   }
 
   onSubmit(){
@@ -28,5 +28,4 @@ export class LoginComponent implements OnInit {
       console.log(response)
     })
   }
-
 }
