@@ -115,6 +115,17 @@ app.post('/add-book', multer({storage: store}).single("image") , (req , res, nex
     });
 })
 
+app.get('/recent-books',(req, res, next) => {
+    let response;
+    Book.find().then(result=> {
+        response = result;
+        console.log(result);
+        res.status(201).json({
+            message: response
+        })
+    })
+})
+
 //app.listen(3000);
 module.exports=app;
  

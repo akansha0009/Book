@@ -34,4 +34,14 @@ export class BookService{
         });
         return promise;
     }
+
+    getBook(){
+        const promise = new Promise((resolve, reject)=> {
+            this.http.get('http://localhost:3000/recent-books').subscribe(res =>{
+                console.log(res);
+                resolve(res);
+            })
+        });
+        return promise;
+    }
 }
