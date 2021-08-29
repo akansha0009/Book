@@ -11,13 +11,15 @@ import { SignupComponent } from './auth/signup/signup.component'
 import { MaterialModule } from './material.module'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AddBookComponent } from './admin/add-book/add-book.component';
+import { RecentBooksComponent } from './recent-books/recent-books.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
-    AddBookComponent
+    AddBookComponent,
+    RecentBooksComponent
   ],
   imports: [
     BrowserModule,

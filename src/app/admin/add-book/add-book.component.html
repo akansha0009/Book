@@ -1,6 +1,10 @@
 <h2>Add books</h2>
 <section>
-    <form fxLayout="column" fxLayoutAlign="center center" [formGroup]="bookForm" (ngSubmit)= "onSubmit()">
+    <form fxLayout="column" 
+          fxLayoutAlign="center center" 
+          [formGroup]="bookForm" 
+          (ngSubmit)= "onSubmit()"
+          >
         <mat-form-field>
             <mat-label>Name</mat-label>
             <input matInput placeholder="Book name" formControlName="name">

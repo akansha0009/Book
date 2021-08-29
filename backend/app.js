@@ -15,22 +15,21 @@ const MIME_TYPE_MAP = {
     'image/jpg': 'jpg'
 }
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        const isValid = MIME_TYPE_MAP[file.mimetype];
-        let error = new Error('Invalid mime type');
-        console.log(req.body);
+const store= multer.diskStorage({
+    destination:(req,file,cb)=>{
+        const isValid= MIME_TYPE_MAP[file.mimetype];
+        let error = new Error('Invalid Mime Type');
         if(isValid){
-            return null;
+            error=null;
         }
-        cb(error, "./backend/images");
+        cb(error,"./backend/images");
     },
-    filename: (req, file, cb) => {
-        const name = file.originalname.toLocaleLowerCase().split(' ').join('-');
-        const ext = MIME_TYPE_MAP[file.mimetype];
-        cb(null, name + '-' + Date.now() + '.' + ext);
+    filename:(req,file,cb)=>{
+        const name=file.originalname.toLowerCase().split(' ').join('-');
+        const ext= MIME_TYPE_MAP[file.mimetype];
+        cb(null, name+ '-' + Date.now()+ '.'+ext);
     }
-})
+});
 
 mongoose.connect('mongodb+srv://Akansha:2U6vOZESNw5bqBGW@cluster0.j6npz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority' ,{useNewUrlParser: true, useUnifiedTopology: true}).then(
     result=>{
@@ -93,15 +92,15 @@ app.post('/login', (req, res, next) => {
     })
 })
 
-app.post('/add-book', multer({storage: storage}).single("image") , (req , res, next)=>{
-    console.log(req.body.name);
+app.post('/add-book', multer({storage: store}).single("image") , (req , res, next)=>{
+    const url= req.protocol + "://" + req.get("host");
     const book = new Book({
         name: req.body.name,
         author: req.body.author,
         price: req.body.price,
         category: req.body.category,
         description: req.body.description,
-        
+        imagePath:url+"/images/"+req.file.filename
     });
     book.save().then(result => {
         res.status(201).json({
@@ -114,6 +113,17 @@ app.post('/add-book', multer({storage: storage}).single("image") , (req , res, n
             message:"Internal server error"
         })
     });
+})
+
+app.get('/recent-books',(req, res, next) => {
+    let response;
+    Book.find().then(result=> {
+        response = result;
+        console.log(result);
+        res.status(201).json({
+            message: response
+        })
+    })
 })
 
 //app.listen(3000);
