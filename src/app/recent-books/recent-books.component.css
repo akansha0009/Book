@@ -1,0 +1,14 @@
+mat-card{
+   border-radius: 10px;
+    box-shadow: 0 6px 12px 0 rgb(0 0 0 / 10%);
+    margin-bottom:10px;
+}
+
+/* .book-img{
+    width: 20%;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+} */
+
+.cart-button{
+    width:100%;
+}

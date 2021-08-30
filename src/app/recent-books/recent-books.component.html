@@ -1,15 +1,19 @@
-
-<section class = "recent-books" fxFlex fxLayoutAlign="center" >
-    <mat-card fxFlex="600px" *ngFor = "let book of bookData" fxLayout="column">
-        <div fxLayout="row">
-            <div>
-                <img mat-card-image src="" alt="picture" style="height:auto; width: 30%; border:1px solid black; margin:0"  >
+<br>
+<section class = "recent-books" fxLayout="column" fxLayoutAlign="center center" style="width:100%;">
+    <mat-card *ngFor = "let book of bookData" fxLayout="coloumn" style="width:70%">
+        <div fxLayout="row" style="margin:0px">
+            <div class="book-img">
+                <img mat-card-image [src]="book.imagePath" [alt]="book.name" style=" width: 100%;
+                box-shadow: 1px 1px 5px rgba(0,0,0,0.5); margin: 10px">
             </div>
-            <div fxLayout="column">
+            <div fxLayout="column" style="margin: 15px;">
                 <mat-card-title>{{ book.name }}</mat-card-title>
                 <mat-card-subtitle>-{{book.author}}</mat-card-subtitle>
                 <mat-card-subtitle>Price: Rs.{{book.price}}</mat-card-subtitle>
                 <mat-card-content>{{ book.description}}</mat-card-content>
+                <div class="cart-button">
+                    <button mat-raised-button color="warn">Add to Cart</button>
+                </div>
             </div> 
         </div>
     </mat-card>
