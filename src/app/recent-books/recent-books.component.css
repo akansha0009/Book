@@ -10,5 +10,6 @@ mat-card{
 } */
 
 .cart-button{
-    width:100%;
+    display: flex;
+    justify-content: start;
 }

@@ -11,6 +11,8 @@ import { MaterialModule } from './material.module'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AddBookComponent } from './admin/add-book/add-book.component';
 import { RecentBooksComponent } from './recent-books/recent-books.component';
+import { CartComponent } from './cart/cart.component';
+import { AuthInterceptor } from './auth/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { RecentBooksComponent } from './recent-books/recent-books.component';
     LoginComponent,
     SignupComponent,
     AddBookComponent,
-    RecentBooksComponent
+    RecentBooksComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,7 @@ import { RecentBooksComponent } from './recent-books/recent-books.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

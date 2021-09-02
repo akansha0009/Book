@@ -9,6 +9,14 @@
                 <mat-icon>input</mat-icon>
                 <span class= "nav-caption">Sign in</span>
             </a>
+            <a mat-list-item routerLink = "/recent-books" (click)= "sidenav.close()">
+                <mat-icon>Book</mat-icon>
+                <span class= "nav-caption">Recent Books</span>
+            </a>
+            <a mat-list-item routerLink = "/" (click)= "sidenav.close()">
+                <mat-icon>Out</mat-icon>
+                <span class= "nav-caption">LogOut</span>
+            </a>
         </mat-list>
     </mat-sidenav>
     <mat-sidenav-content>
@@ -20,8 +28,12 @@
             <div>BookLand</div>
                 <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs fxShow.md>
                     <ul fxLayout class="navigation-item" fxLayoutGap="10px">
-                        <li><a routerLink = "/signup">Sign up</a></li>
-                        <li><a routerLink = "/login">Sign in</a></li>
+                        <li *ngIf = "isUserAuthenticated"><a routerLink = "/add-book">Add book</a></li>
+                        <li *ngIf = "isUserAuthenticated"><a routerLink = "/recent-books">Recent Books</a></li>
+                        <li *ngIf = "!isUserAuthenticated"><a routerLink = "/signup">Sign up</a></li>
+                        <li *ngIf = "!isUserAuthenticated"><a routerLink = "/login">Sign in</a></li>
+                        <li><a routerLink= "/cart"><mat-icon>local_grocery_store</mat-icon></a></li>
+                        <li *ngIf = "isUserAuthenticated"><button mat-button (click)="isLogout()">Logout</button></li>
                     </ul>
                 </div>
         </mat-toolbar>

@@ -8,11 +8,12 @@
             </div>
             <div fxLayout="column" style="margin: 15px;">
                 <mat-card-title>{{ book.name }}</mat-card-title>
-                <mat-card-subtitle>-{{book.author}}</mat-card-subtitle>
+                <mat-card-subtitle>-{{book.author}}(Author)</mat-card-subtitle>
                 <mat-card-subtitle>Price: Rs.{{book.price}}</mat-card-subtitle>
+                <mat-card-subtitle>Category: {{book.category}}</mat-card-subtitle>
                 <mat-card-content>{{ book.description}}</mat-card-content>
                 <div class="cart-button">
-                    <button mat-raised-button color="warn">Add to Cart</button>
+                    <button mat-raised-button color="warn" (click)= "addCart(book)">Add to Cart</button>
                 </div>
             </div> 
         </div>

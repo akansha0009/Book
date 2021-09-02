@@ -12,17 +12,17 @@ export class SignupComponent implements OnInit {
  class = "Medium";
  rollno=90;
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
   }
   onSubmit(form: NgForm){
     console.log(form);
-    // this.authService.signUp(form.value.email,form.value.password).then(response =>{
-    //   console.log(response);
-    // }).catch(error =>{
-    //   console.log(error);
-    // });
+    this.authService.signUp(form.value.email,form.value.password).then(response =>{
+      console.log(response);
+    }).catch(error =>{
+      console.log(error);
+    });
   }
 
 }

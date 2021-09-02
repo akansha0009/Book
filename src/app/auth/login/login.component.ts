@@ -11,7 +11,7 @@ export class LoginComponent implements OnInit {
   loginForm:FormGroup= new FormGroup({});
   public rollno:any;
   newForm:FormGroup;
-
+  
   constructor(private authService: AuthService){
   }
 

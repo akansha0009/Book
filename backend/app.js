@@ -5,9 +5,13 @@ const mongoose = require('mongoose');
 const User = require('./models/user');
 const Book = require('./models/add-book');
 const multer = require('multer');
+const jwt = require("jsonwebtoken");
+const checkAuth = require('./middleware/check-auth')
+const Cart = require('./models/cart')
 
 const crypto = require('crypto');
 const { diskStorage } = require("multer");
+const user = require("./models/user");
 
 const MIME_TYPE_MAP = {
     'image/png': 'png',
@@ -85,14 +89,21 @@ app.post('/login', (req, res, next) => {
     }).then((result) => {
         console.log(result);
         if(result.password == hash){
-            res.status(201).json({
-                message: 'User is logged in'
-            })
+            const token = jwt.sign({email: user.email, userId: user._id},
+                'anything_should_be_longer',
+                 {expiresIn: "1h"});
+                 console.log(token);
+               res.status(200).json({
+                   token: token,
+                   id: result._id
+               })
         }
-    })
+    });
 })
 
-app.post('/add-book', multer({storage: store}).single("image") , (req , res, next)=>{
+app.post('/add-book', 
+ checkAuth
+,multer({storage: store}).single("image") , (req , res, next)=>{
     const url= req.protocol + "://" + req.get("host");
     const book = new Book({
         name: req.body.name,
@@ -115,15 +126,52 @@ app.post('/add-book', multer({storage: store}).single("image") , (req , res, nex
     });
 })
 
-app.get('/recent-books',(req, res, next) => {
+app.get('/recent-books', (req, res, next) => {
     let response;
     Book.find().then(result=> {
         response = result;
-        console.log(result);
+        // console.log(result);
         res.status(201).json({
             message: response
         })
     })
+})
+
+app.post('/cart',multer({storage: store}).single("image"),(req, res, next) => {
+    const url= req.protocol + "://" + req.get("host");
+    console.log(req.body);
+    const cart = new Cart({
+        bookId: req.body.data._id,
+        userId: req.body.userId,
+        name: req.body.data.name,
+        author: req.body.data.author,
+        price: req.body.data.price,
+        category: req.body.data.category,
+        description: req.body.data.description,
+        imagePath: req.body.data.imagePath
+    });
+    cart.save().then(result => {
+        res.status(201).json({
+            message:"Book has been saved"
+        })
+    }).catch(error => {
+        console.log(error);
+        res.status(501).json({
+            error : error,
+            message:"Internal server error"
+        })
+    });
+})
+
+app.get('/cart', (req, res, next) => {
+    console.log(res);
+    let response;
+    Cart.find().then(result => {
+        res.status(201).json({
+            message: "Get books"
+        })
+    })
+
 })
 
 //app.listen(3000);
