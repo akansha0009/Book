@@ -164,11 +164,11 @@ app.post('/cart',multer({storage: store}).single("image"),(req, res, next) => {
 })
 
 app.get('/cart', (req, res, next) => {
-    console.log(res);
-    let response;
     Cart.find().then(result => {
+        console.log(result);
         res.status(201).json({
-            message: "Get books"
+            message: "Get books",
+            data:result
         })
     })
 
