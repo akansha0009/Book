@@ -130,7 +130,7 @@ app.get('/recent-books', (req, res, next) => {
     let response;
     Book.find().then(result=> {
         response = result;
-        // console.log(result);
+        console.log(result);
         res.status(201).json({
             message: response
         })
@@ -164,14 +164,23 @@ app.post('/cart',multer({storage: store}).single("image"),(req, res, next) => {
 })
 
 app.get('/cart', (req, res, next) => {
+    console.log('hello');
+    // console.log(res)
     Cart.find().then(result => {
         console.log(result);
         res.status(201).json({
-            message: "Get books",
-            data:result
+            message: "get cart",
+            data:result,
         })
     })
 
+})
+
+app.delete('/cart/:id', (req, res, next) => {
+    console.log(req.params.id);
+    res.status(200).json({
+        message: 'Book deleted'
+    })
 })
 
 //app.listen(3000);

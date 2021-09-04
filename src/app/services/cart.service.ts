@@ -18,8 +18,19 @@ export class CartService{
     }
 
     getBookToCart(){
-        this.http.get('http://localhost:3000/cart').subscribe(res => {
-            console.log(res);
+        const promise = new Promise((resolve, reject) => {
+            this.http.get('http://localhost:3000/cart')
+            .subscribe((res: any) => {
+                console.log(res);
+                resolve(res);
+            })
+        })
+        return promise;
+    }      
+
+    deleteCart(bookId: string){
+        this.http.delete('http://localhost:3000/cart' + bookId).subscribe(res => {
+            console.log("deleted");
         })
     }
-}
+} 
