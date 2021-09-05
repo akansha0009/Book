@@ -29,7 +29,7 @@ export class CartService{
     }      
 
     deleteCart(id: string){
-        // let params = new HttpParams();
+        // let params = new HttpParams(); 
         this.http.get('http://localhost:3000/delete-cart',{
           params: new HttpParams().set('id',id)
         }).subscribe(res => {
