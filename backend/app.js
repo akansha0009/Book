@@ -164,7 +164,7 @@ app.post('/cart',multer({storage: store}).single("image"),(req, res, next) => {
 })
 
 app.get('/cart', (req, res, next) => {
-    console.log('hello');
+    // console.log('hello');
     // console.log(res)
     Cart.find().then(result => {
         console.log(result);
@@ -176,9 +176,12 @@ app.get('/cart', (req, res, next) => {
 
 })
 
-app.delete('/cart/:id', (req, res, next) => {
-    console.log(req.params.id);
-    res.status(200).json({
+app.get('/delete-cart', (req, res, next) => {
+    console.log(req.query);
+    Cart.remove({_id:req.query.id}).then(result => {
+        console.log(result);
+    })
+    res.status(201).json({
         message: 'Book deleted'
     })
 })

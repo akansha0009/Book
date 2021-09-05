@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { AuthService } from "../auth/auth.service";
 
@@ -21,15 +21,18 @@ export class CartService{
         const promise = new Promise((resolve, reject) => {
             this.http.get('http://localhost:3000/cart')
             .subscribe((res: any) => {
-                console.log(res);
+                console.log("response",res);
                 resolve(res);
             })
         })
         return promise;
     }      
 
-    deleteCart(bookId: string){
-        this.http.delete('http://localhost:3000/cart' + bookId).subscribe(res => {
+    deleteCart(id: string){
+        // let params = new HttpParams();
+        this.http.get('http://localhost:3000/delete-cart',{
+          params: new HttpParams().set('id',id)
+        }).subscribe(res => {
             console.log("deleted");
         })
     }

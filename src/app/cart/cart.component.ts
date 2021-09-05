@@ -20,8 +20,8 @@ export class CartComponent implements OnInit {
     })
   }
 
-  onDelete(bookId: string){
-    this.cartService.deleteCart(bookId);
+  onDelete(id: string){
+    this.cartService.deleteCart(id);
   }
 
 
