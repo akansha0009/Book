@@ -1,9 +1,9 @@
-const User = require("../models/user");
+const user = require('../models/user');
 const crypto = require('crypto');
 const jwt = require("jsonwebtoken");
 const mongoose = require('mongoose');
 const checkAuth = require('../middleware/check-auth');
-
+const User = require("../models/user");
 exports.signUp = (req,res,next)=>{
     const email = req.body.email;
     const password = req.body.password;
@@ -43,7 +43,7 @@ exports.login = (req,res,next)=>{
             const token = jwt.sign({email: user.email, userId: user._id},
                 'anything_should_be_longer',
                  {expiresIn: "1h"});
-                 console.log(token);
+                //  console.log(token);
                res.status(200).json({
                    token: token,
                    id: result._id

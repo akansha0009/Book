@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from './auth/auth.service';
 
@@ -10,9 +11,9 @@ import { AuthService } from './auth/auth.service';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'bookland';
   private authListenerSubs: Subscription;
-  isUserAuthenticated
+  isUserAuthenticated;
 
-  constructor(private authService: AuthService){}
+  constructor(private authService: AuthService, private router: Router){}
 
   ngOnInit(){
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
@@ -26,5 +27,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   isLogout(){
     this.authService.logout();
+    this.router.navigate(['/signup']);
   }
 }

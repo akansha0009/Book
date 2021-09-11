@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 
 @Injectable({
@@ -9,8 +10,9 @@ export class AuthService{
     private token: string;
     userId:string;
     private authStatusListener = new Subject<boolean>();
+    private isAuthenticated = false;
 
-    constructor(private http:HttpClient){}
+    constructor(private http:HttpClient, private router: Router){}
 
     getUserId(){
        return this.userId;
@@ -24,6 +26,10 @@ export class AuthService{
         return this.authStatusListener.asObservable();
     }
 
+    getIsAuth(){
+        return this.isAuthenticated;
+    }
+
     signUp(email:string,password:string){
         const authData={ email:email, password:password};
         const promise = new Promise((resolve,reject)=>{
@@ -35,16 +41,22 @@ export class AuthService{
         })
         });
      return promise;
+     
     } 
 
     login(email: string, password: string){
         const authData = {email: email, password: password};
         const promise = new Promise((resolve, rejects) => {
             this.http.post<{token:string}>('http://localhost:3000/login', authData).subscribe((result: any) => {
-                resolve(result);
+                console.log(result);    
+            resolve(result);
+                
                 const token = result.token;
                 this.token =  token;
-                this.authStatusListener.next(true);
+                if(token){
+                    this.authStatusListener.next(true);
+                    this.isAuthenticated = true;
+                }
                 this.userId = result.id;
                 console.log(result);
                 
@@ -54,6 +66,7 @@ export class AuthService{
             })
         });
         return promise;
+        
     }
 
     logout(){

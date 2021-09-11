@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { SignupComponent } from '../signup/signup.component';
 @Component({
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
   public rollno:any;
   newForm:FormGroup;
   
-  constructor(private authService: AuthService){
+  constructor(private authService: AuthService, private router: Router){
   }
 
   ngOnInit(){
@@ -25,7 +26,8 @@ export class LoginComponent implements OnInit {
   onSubmit(){
     console.log(this.loginForm);
     this.authService.login(this.loginForm.value.email, this.loginForm.value.password).then((response: any) => {
-      console.log(response)
-    })
+      console.log(response);
+      this.router.navigate(['/recent-books']);
+    });
   }
 }
