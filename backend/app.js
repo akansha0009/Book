@@ -4,6 +4,8 @@ const app = express();
 const mongoose = require('mongoose');
 const User = require('./models/user');
 const Book = require('./models/add-book');
+const Order = require('./models/order');
+
 const multer = require('multer');
 const jwt = require("jsonwebtoken");
 const checkAuth = require('./middleware/check-auth')
@@ -12,6 +14,9 @@ const Cart = require('./models/cart')
 const crypto = require('crypto');
 const { diskStorage } = require("multer");
 const user = require("./models/user");
+const userRoutes = require("./routes/userRoutes");
+const cartRoutes = require("./routes/cartRoute");
+const bookRoutes = require("./routes/bookRoute");
 
 const MIME_TYPE_MAP = {
     'image/png': 'png',
@@ -19,21 +24,9 @@ const MIME_TYPE_MAP = {
     'image/jpg': 'jpg'
 }
 
-const store = multer.diskStorage({
-    destination:(req,file,cb)=>{
-        const isValid= MIME_TYPE_MAP[file.mimetype];
-        let error = new Error('Invalid Mime Type');
-        if(isValid){
-            error=null;
-        }
-        cb(error,"./backend/images");
-    },
-    filename:(req,file,cb)=>{
-        const name=file.originalname.toLowerCase().split(' ').join('-');
-        const ext= MIME_TYPE_MAP[file.mimetype];
-        cb(null, name+ '-' + Date.now()+ '.'+ext);
-    }
-});
+
+
+
 
 mongoose.connect('mongodb+srv://Akansha:2U6vOZESNw5bqBGW@cluster0.j6npz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority' ,{useNewUrlParser: true, useUnifiedTopology: true}).then(
     result=>{
@@ -53,78 +46,9 @@ app.use((req,res,next)=>{
     next();
 });
 
-app.post('/signUp',(req,res,next)=>{
-    const email = req.body.email;
-    const password = req.body.password;
-    const salt = "toosoon"
-    const hash = crypto.createHash("sha256", salt).update(password).digest('hex');
-    console.log(hash);
-    const user = new User({
-        email: email,
-        password: hash
-    });
-    user.save().then((result) => {
-        if(result){
-            res.json({
-                message:"User Created"
-                });
-        }
-    }) .catch((error) => {
-        res.status(501).json({
-            message: "Internal server error",
-            error: error
-        })
-    });
-   
-});
-
-app.post('/login', (req, res, next) => {
-    const email = req.body.email;
-    const password = req.body.password;
-    const salt = "toosoon"
-    const hash = crypto.createHash("sha256", salt).update(password).digest('hex');
-    // console.log(req.body);
-    User.findOne({
-        email: email
-    }).then((result) => {
-        console.log(result);
-        if(result.password == hash){
-            const token = jwt.sign({email: user.email, userId: user._id},
-                'anything_should_be_longer',
-                 {expiresIn: "1h"});
-                 console.log(token);
-               res.status(200).json({
-                   token: token,
-                   id: result._id
-               })
-        }
-    });
-})
-
-app.post('/add-book', 
- checkAuth
-,multer({storage: store}).single("image") , (req , res, next)=>{
-    const url= req.protocol + "://" + req.get("host");
-    const book = new Book({
-        name: req.body.name,
-        author: req.body.author,
-        price: req.body.price,
-        category: req.body.category,
-        description: req.body.description,
-        imagePath:url+"/images/"+req.file.filename
-    });
-    book.save().then(result => {
-        res.status(201).json({
-            message:"Book has been saved"
-        })
-    }).catch(error => {
-        console.log(error);
-        res.status(501).json({
-            error : error,
-            message:"Internal server error"
-        })
-    });
-})
+app.use(userRoutes);
+app.use(cartRoutes);
+app.use(bookRoutes);
 
 app.get('/recent-books', (req, res, next) => {
     let response;
@@ -137,41 +61,11 @@ app.get('/recent-books', (req, res, next) => {
     })
 })
 
-app.post('/cart',multer({storage: store}).single("image"),(req, res, next) => {
-    const url= req.protocol + "://" + req.get("host");
-    console.log(req.body);
-    const cart = new Cart({
-        bookId: req.body.data._id,
-        userId: req.body.userId,
-        name: req.body.data.name,
-        author: req.body.data.author,
-        price: req.body.data.price,
-        category: req.body.data.category,
-        description: req.body.data.description,
-        imagePath: req.body.data.imagePath
-    });
-    cart.save().then(result => {
-        res.status(201).json({
-            message:"Book has been saved"
-        })
-    }).catch(error => {
-        console.log(error);
-        res.status(501).json({
-            error : error,
-            message:"Internal server error"
-        })
-    });
-})
-
-app.get('/cart', (req, res, next) => {
-    Cart.find().then(result => {
-        console.log(result);
-        res.status(201).json({
-            message: "Get books",
-            data:result
-        })
+app.post('/order', (req, res, next) => {
+    console.log("body", req.body);
+    res.status(200).json({
+        message: "Confirm order",
     })
-
 })
 
 //app.listen(3000);

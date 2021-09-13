@@ -11,7 +11,7 @@ export class CartService{
 
     addToCart(book){
          const userId =this.authService.getUserId();
-
+        console.log(userId);
         this.http.post('http://localhost:3000/cart',{ data:book,userId:userId}).subscribe(res => {
             console.log(res)
         })
@@ -34,6 +34,17 @@ export class CartService{
           params: new HttpParams().set('id',id)
         }).subscribe(res => {
             console.log("deleted");
+        })
+    }
+
+    totalPrice(){
+
+        
+    }
+
+    order(cart){
+        this.http.post('http://localhost:3000/order', {cart}).subscribe(res => {
+            console.log(res);
         })
     }
 } 
